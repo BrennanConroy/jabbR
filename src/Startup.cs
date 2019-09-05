@@ -1,3 +1,5 @@
+using jabbR.Hubs;
+using jabbR.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,8 @@ namespace jabbR
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRazorPages();
+            services.AddSignalR();
+            services.AddJabbRServices();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,6 +48,7 @@ namespace jabbR
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<ChatHub>("/jabbr");
                 endpoints.MapRazorPages();
             });
         }
